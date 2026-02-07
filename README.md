@@ -1,2 +1,2 @@
 # pbdl
-physics-based deep learning
+Physics-based Deep Learning
