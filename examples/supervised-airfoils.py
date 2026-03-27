@@ -6,8 +6,22 @@ from tqdm import tqdm
 import torch
 import torch.nn as nn
 import torch.optim as optim
+#
+#!pip install --upgrade --quiet git+https://github.com/tum-pbs/pbdl-dataset
 
-!pip install --upgrade --quiet git+https://github.com/tum-pbs/pbdl-dataset
+import subprocess
+#import sys
+
+# The command to install/upgrade the pbdl-dataset from GitHub
+command = [sys.executable, "-m", "pip", "install", "--upgrade", "git+https://github.com/tum-pbs/pbdl-dataset"]
+
+try:
+    subprocess.check_call(command)
+    print("Successfully updated pbdl-dataset.")
+except subprocess.CalledProcessError as e:
+    print(f"Error occurred while installing: {e}")
+
+#
 from pbdl.torch.loader import Dataloader
 
 
