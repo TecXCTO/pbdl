@@ -141,7 +141,8 @@ def train_model(model, dataloader, optimizer, num_epochs=50, device="cuda"):
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 from sklearn.utils import shuffle
-
+import gm as g_m
+gm=g_m.gm
 samples = generate_2d_gaussian_mixture(50000, gm)
 samples = shuffle(samples.numpy())
 dataset = TensorDataset(torch.tensor(samples, dtype=torch.float32))
