@@ -136,6 +136,8 @@ def train_model(model, dataloader, optimizer, num_epochs=50, device="cuda"):
         avg_loss = epoch_loss / len(dataloader)
         losses.append(avg_loss)
         print(f"Epoch {epoch + 1}/{num_epochs}, Loss: {avg_loss:.4f}")
+    torch.save({'state_dict': model.state_dict(), 'chars': chars}, 'models/tecxgm.pth')
+    
     return losses
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -160,4 +162,5 @@ if __name__=="__main__":
     # Step 3: Train the model
     num_epochs = 50
     losses = train_model(realnvp_model, dataloader, optimizer, num_epochs=num_epochs, device=device)
-    torch.save()
+    #torch.save()
+    torch.save({'state_dict': realnvp_model.state_dict(), 'chars': chars}, 'models/tecxgmmodel.pth')
