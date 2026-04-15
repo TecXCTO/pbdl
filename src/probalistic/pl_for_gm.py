@@ -142,19 +142,22 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 from sklearn.utils import shuffle
 import gm as g_m
-gm=g_m.gm
-samples = generate_2d_gaussian_mixture(50000, gm)
-samples = shuffle(samples.numpy())
-dataset = TensorDataset(torch.tensor(samples, dtype=torch.float32))
-dataloader = DataLoader(dataset, batch_size=128, shuffle=True)
-
-dim_flow = 2
-steps = 6
-hidden_dim = 256
-
-realnvp_model = RealNVP2D(dim_flow, steps, hidden_dim).to(device)
-optimizer = torch.optim.Adam(realnvp_model.parameters(), lr=2e-4)
-
-# Step 3: Train the model
-num_epochs = 50
-losses = train_model(realnvp_model, dataloader, optimizer, num_epochs=num_epochs, device=device)
+if __name__=="__main__":
+    parameters = [
+        {"mean": [0, 0], "std": [1, 1]},
+        {"mean": [3, 2], "std": [0.5, 0.5]}
+    ]
+    gm = g_m.GaussianMixture(parameters)
+    samples = generate_2d_gaussian_mixture(50000, gm)
+    samples = shuffle(samples.numpy())
+    dataset = TensorDataset(torch.tensor(samples, dtype=torch.float32))
+    dataloader = DataLoader(dataset, batch_size=128, shuffle=True)
+    dim_flow = 2
+    steps = 6
+    hidden_dim = 256
+    realnvp_model = RealNVP2D(dim_flow, steps, hidden_dim).to(device)
+    optimizer = torch.optim.Adam(realnvp_model.parameters(), lr=2e-4)
+    # Step 3: Train the model
+    num_epochs = 50
+    losses = train_model(realnvp_model, dataloader, optimizer, num_epochs=num_epochs, device=device)
+    torch.save()
