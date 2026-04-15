@@ -73,11 +73,11 @@ def plot_gaussian_mixture(gm, samples, grid_size=100):
     plt.tight_layout()
     plt.show()
 
-parameters = [
-    {"mean": [0, 0], "std": [1, 1]},
-    {"mean": [3, 2], "std": [0.5, 0.5]}
-]
-gm = GaussianMixture(parameters)
-
-samples = gm.sample(1000)
-plot_gaussian_mixture(gm, samples)
+if __name__=="__main__":
+    parameters = [
+        {"mean": [0, 0], "std": [1, 1]},
+        {"mean": [3, 2], "std": [0.5, 0.5]}
+    ]
+    gm = GaussianMixture(parameters)
+    samples = gm.sample(1000)
+    plot_gaussian_mixture(gm, samples)
